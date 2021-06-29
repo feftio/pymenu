@@ -1,4 +1,4 @@
-from .main import PyMenu
-from .main import Page
+from .app import PyMenu
+from . import page as page
 
-__all__ = ['PyMenu', 'Page']
+# __all__ = ['PyMenu', 'page']
