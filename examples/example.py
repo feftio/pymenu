@@ -1,5 +1,6 @@
+from pymenu.context import Context
 from pymenu import PyMenu
-from pymenu.page import DefaultPage, SelectionPage
+from pymenu.page import Page, SelectionPage
 import os
 
 
@@ -8,7 +9,6 @@ menu = PyMenu()
 
 @menu.page(name='home')
 class HomeSelectionPage(SelectionPage):
-
     @menu.item(output='1. Home.', triggers=['1'])
     def home(self):
         pass
@@ -22,11 +22,16 @@ class HomeSelectionPage(SelectionPage):
         os.system('exit')
 
 
-@menu.page(name='other')
-class OtherPage(DefaultPage):
-
+@menu.page(name='about')
+class AboutPage(Page):
     def show(self):
-        print("Other Page is showing...")
+        print('About Page is showing...')
 
 
-menu.show('home')
+@menu.page(name='other')
+class OtherPage(Page):
+    def show(self):
+        print('Other Page is showing...')
+
+
+menu.run('other')
