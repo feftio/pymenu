@@ -16,4 +16,12 @@ class Holder(dict):
     def hasvalue(self, value: t.Any) -> bool:
         if value in self.values():
             return True
-        return False 
+        return False
+
+    def add(self, key: t.Any, value: t.Any) -> bool:
+        """ Add key/value to holder if holder 
+        doesn't have the same key. Only unique key."""
+        if not self.haskey(key):
+            self[key] = value
+            return True
+        return False
