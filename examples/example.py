@@ -13,25 +13,25 @@ class HomeSelectionPage(SelectionPage):
     def home(self):
         pass
 
-    @menu.item(output='2. Other.', triggers=['2'])
-    def other(self):
-        pass
+    # @menu.item(output='2. Other.', triggers=['2'])
+    # def other(self):
+    #     pass
 
-    @menu.item(output='3. Exit.', triggers=['3'])
-    def exit(self):
-        os.system('exit')
-
-
-@menu.page(name='about')
-class AboutPage(Page):
-    def show(self):
-        print('About Page is showing...')
+    # @menu.item(output='3. Exit.', triggers=['3'])
+    # def exit(self):
+    #     os.system('exit')
 
 
-@menu.page(name='other')
-class OtherPage(Page):
-    def show(self):
-        print('Other Page is showing...')
+# @menu.page(name='about')
+# class AboutPage(Page):
+#     def show(self):
+#         print('About Page is showing...')
 
 
-menu.run('other')
+# @menu.page(name='other')
+# class OtherPage(Page):
+#     def show(self):
+#         print('Other Page is showing...')
+
+# menu.run('other')
+menu.run('home')

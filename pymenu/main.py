@@ -10,6 +10,7 @@ class PyMenu:
     def __init__(self, separator: t.Optional[str] = None, *args, **kwargs) -> None:
         self.context: t.Type[Context] = Context()
         self.pageholder: t.Type[Holder] = Holder()  # {pagename: pageclass}
+        self.itemholder: t.Type[Holder] = Holder()  # {pagename: [<Callable>]}
         self.separator: t.Optional[str] = separator
 
     @property
