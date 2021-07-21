@@ -7,11 +7,11 @@ from pymenu.context import Context
 
 class PyMenu:
 
-    def __init__(self, separator: t.Optional[str] = None, printer: t.Callable = lambda *args, **kwargs: print(*args, **kwargs)) -> None:
+    def __init__(self, separator: t.Optional[str] = None, printer: t.Callable = lambda *args, **kwargs: print(*args, **kwargs)):
         self.context: t.Type[Context] = Context()
         self.pageholder: t.Type[Holder] = Holder()  # {pagename: pageclass}
         self.separator: t.Optional[str] = separator
-        self.printer = printer
+        self.printer: t.Callable = printer
 
     @property
     def pages(self):
