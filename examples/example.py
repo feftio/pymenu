@@ -1,6 +1,6 @@
 from pymenu.context import Context
 from pymenu import PyMenu
-from pymenu.page import Page, SelectionPage
+from pymenu.page import Page
 import os
 
 
@@ -44,3 +44,5 @@ class SomePage(Page):
     def show(self):
         self.item(label='1. Choose algorithm.', trigger=self.choose_algorithm, on=['1'])
         self.item(label='2. Help.', trigger=self.helper)
+
+menu.run('some')
