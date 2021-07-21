@@ -18,5 +18,5 @@ class Page(metaclass=ABCMeta):
     def item(self):
         pass
 
-    def printer(self, label):
-        print(label)
+    def printer(self, *args, **kwargs):
+        print(*args, **kwargs)
