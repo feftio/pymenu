@@ -17,18 +17,18 @@ class PyMenu:
     def pages(self):
         return tuple(map(lambda item: (item[0], item[1].__name__), self.pageholder.items()))
 
-    def run(self, name: str, *args, **kwargs) -> t.Optional[str]:
-        if not self.pageholder.haskey(name):
+    def run(self, pagename: str, *args, **kwargs) -> t.Optional[str]:
+        if not self.pageholder.haskey(pagename):
             return None
-        page = self.pageholder[name]
+        page = self.pageholder[pagename]
         page(Context()).show(*args, **kwargs)
         return page.__name__
 
-    def page(self, name: str) -> t.Callable:
+    def page(self, pagename: str) -> t.Callable:
         def decorator(pageclass: t.Type[Page]):
             if not isinstance(pageclass, Page.__class__):
                 raise TypeError(
                     f'{pageclass.__name__} must be inherited from Page class.')
-            self.pageholder.add(name, pageclass)
+            self.pageholder.add(pagename, pageclass)
             return pageclass
         return decorator
