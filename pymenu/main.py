@@ -21,7 +21,7 @@ class PyMenu:
         if not self.pageholder.haskey(pagename):
             return None
         page = self.pageholder[pagename]
-        page(Context()).show(*args, **kwargs)
+        page(Context()).build(*args, **kwargs)
         return page.__name__
 
     def page(self, pagename: str) -> t.Callable:

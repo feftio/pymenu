@@ -2,25 +2,32 @@ from __future__ import annotations
 import typing as t
 from abc import ABCMeta, abstractmethod
 from pymenu.context import Context
+from pymenu.helpers import protect
 
 
-class Page(metaclass=ABCMeta):
+class Page(metaclass=protect('print', 'item', 'back')):
     def __init__(self, context: t.Type[Context]):
         self.context: t.Type[Context] = context
 
-    @abstractmethod
-    def show(self):
+    def build(self):
+        raise NotImplementedError(
+            f'You need to override "build" method in {self.__class__.__name__} class.')
+
+    def action(self):
         pass
 
-    def trigger(self):
+    def item(self, label: t.Optional[str] = None, on: t.Tuple[str] = (), action: t.Optional[t.Callable] = None):
+        action = self.action if action is None else action
+        self.print(label)
+
+    def back(self, label: t.Optional[str] = None, on: t.Tuple[str] = ()) -> None:
         pass
 
-    def item(self, label: t.Optional[str] = None, on: t.Tuple[str] = (), trigger: t.Optional[t.Callable] = None):
-        trigger = self.trigger if trigger is None else trigger
-        self.printer(label)
-
-    def printer(self, *args, **kwargs):
+    def printer(self, *args, **kwargs) -> None:
         print(*args, **kwargs)
+
+    def print(self, *args, **kwargs) -> None:
+        self.printer(*args, **kwargs)
 
 
 class PageBuilder:
