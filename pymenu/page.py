@@ -15,8 +15,14 @@ class Page(metaclass=ABCMeta):
     def trigger(self):
         pass
 
-    def item(self):
-        pass
+    def item(self, label: t.Optional[str] = None, on: t.Tuple[str] = (), trigger: t.Optional[t.Callable] = None):
+        trigger = self.trigger if trigger is None else trigger
+        self.printer(label)
 
     def printer(self, *args, **kwargs):
         print(*args, **kwargs)
+
+
+class PageBuilder:
+    def __init__(self):
+        pass
