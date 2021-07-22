@@ -1,7 +1,7 @@
 from __future__ import annotations
 from pymenu.holder import Holder
 import typing as t
-from pymenu.page import Page
+from pymenu.page import Page, PageBuilder
 from pymenu.context import Context
 
 
@@ -12,6 +12,7 @@ class PyMenu:
         self.pageholder: t.Type[Holder] = Holder()  # {pagename: pageclass}
         self.separator: t.Optional[str] = separator
         self.printer: t.Callable = printer
+        # self.pagebuilder: PageBuilder = PageBuilder()
 
     @property
     def pages(self):
@@ -20,9 +21,9 @@ class PyMenu:
     def run(self, pagename: str, *args, **kwargs) -> t.Optional[str]:
         if not self.pageholder.haskey(pagename):
             return None
-        page = self.pageholder[pagename]
-        page(Context()).build(*args, **kwargs)
-        return page.__name__
+        pageclass = self.pageholder[pagename]
+        PageBuilder(pageclass, self.context).build()
+        return pageclass.__name__
 
     def page(self, pagename: str) -> t.Callable:
         def decorator(pageclass: t.Type[Page]):
