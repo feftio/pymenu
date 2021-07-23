@@ -19,17 +19,23 @@ class Page:
         raise NotImplementedError(
             f'You need to override "build" method in {self.__class__.__name__} class.')
 
-    def listen(self, inputdata: str):
-        pass  # TODO: make a listener class with "on" list
+    def listen(self, trigger: str) -> None:
+        for item in self.items:
+            item.listen(trigger)
 
-    def item(self, label: t.Optional[str] = None, on: t.Tuple[str] = (), action: t.Optional[t.Callable] = None):
+    def action(self):
+        pass
+
+    def item(self, label: t.Optional[str] = None, triggers: t.Tuple[str] = (), action: t.Optional[t.Callable] = None):
         action = self.action if action is None else action
-        self.print(label)
+        _item = Item(label, triggers, action)
+        self.print(_item.label)
+        self.items.append(_item)
 
-    def back(self, label: t.Optional[str] = None, on: t.Tuple[str] = ()) -> None:
+    def back(self, label: t.Optional[str] = None, triggers: t.Tuple[str] = ()) -> None:
         def _back():
             pass
-        self.item(label, on, action=_back())
+        self.item(label, triggers, action=_back())
 
     def printer(self, *args, **kwargs) -> None:
         print(*args, **kwargs)
@@ -47,10 +53,17 @@ class PageBuilder:
         Console.clear()
         page = self.pageclass(self.context)
         page.build()
-        page.listen(Console.listen())
+        page.listen(Console.read())
 
 
 class Item(Listener):
-    def __init__(self, label: t.Optional[str] = None, on: t.Tuple[str] = (), action: t.Optional[t.Callable] = None):
-        super().__init__(on, action)
+    def __init__(self, label: t.Optional[str] = None, triggers: t.Tuple[str] = (), action: t.Optional[t.Callable] = None):
+        super().__init__(triggers, action)
         self.label: t.Optional[str] = label
+
+
+if __name__ == '__main__':
+    item = Item(label='1. Back.', triggers=(
+        '1'), action=lambda: print('hello'))
+    print(item.label)
+    item.listen((Console.read()))
