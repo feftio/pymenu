@@ -3,18 +3,10 @@ import typing as t
 
 
 class Listener:
-    def __init__(self, on: t.Tuple[str], action: t.Callable):
-        self.on: t.Tuple[t.Any] = on
+    def __init__(self, triggers: t.Tuple[str], action: t.Callable):
+        self.triggers: t.Tuple[t.Any] = triggers
         self.action: t.Callable = action
 
-    def some(self, on: t.Tuple[str]) -> t.Any:
-        for event in on:
-            if event in self.on:
-                return self.action()
-
-    def each(self, on: t.Tuple[str]) -> t.List[t.Any]:
-        action_results = []
-        for event in on:
-            if event in self.on:
-                action_results.append(self.action())
-        return action_results
+    def listen(self, trigger: str):
+        if trigger in self.triggers:
+            return self.action()
