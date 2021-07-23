@@ -17,8 +17,12 @@ class HomePage(Page):
 @menu.page('work')
 class SomePage(Page):
     def build(self):
-        self.item(label='1. Run "Exit".')
-        self.item(label='2. Back.')
+        self.item(label='1. Run "Exit".',
+                  action=lambda: print('Running...'),
+                  triggers=('1', 'Run'))
+        self.item(label='2. Back.',
+                  action=lambda: menu.run('home'),
+                  triggers=('2'))
 
 
 menu.run('work')
