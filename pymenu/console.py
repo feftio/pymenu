@@ -8,7 +8,7 @@ class Console:
         pass
 
     @staticmethod
-    def listen() -> None:
+    def read() -> None:
         return input()
 
     @staticmethod
