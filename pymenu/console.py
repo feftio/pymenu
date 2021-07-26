@@ -8,9 +8,13 @@ class Console:
         pass
 
     @staticmethod
-    def read() -> None:
-        return input()
+    def write(*args, **kwargs) -> None:
+        print(*args, **kwargs)
 
     @staticmethod
-    def clear():
+    def read(prompt: t.Any = '') -> str:
+        return input(prompt)
+
+    @staticmethod
+    def clear() -> None:
         os.system('cls' if os.name == 'nt' else 'clear')
