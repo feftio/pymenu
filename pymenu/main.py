@@ -7,12 +7,13 @@ from pymenu.context import Context
 
 class PyMenu:
 
-    def __init__(self, separator: t.Optional[str] = None, printer: t.Callable = lambda *args, **kwargs: print(*args, **kwargs)):
+    def __init__(self, separator: t.Optional[str] = None, looped: bool = False, printer: t.Callable = lambda *args, **kwargs: print(*args, **kwargs)):
         self.context: t.Type[Context] = Context()
         self.pageholder: t.Type[Holder] = Holder()  # {pagename: pageclass}
         self.separator: t.Optional[str] = separator
         self.printer: t.Callable = printer
-        # self.pagebuilder: PageBuilder = PageBuilder()
+        self.looped: bool = looped  # TODO: make it work.
+        # self.pagebuilder: PageBuilder = PageBuilder()  # TODO: make it work.
 
     @property
     def pages(self):
@@ -25,6 +26,7 @@ class PyMenu:
         PageBuilder(pageclass, self.context).build()
         return pageclass.__name__
 
+    # TODO: make 2 ways using this (with pagename and without).
     def page(self, pagename: str) -> t.Callable:
         def decorator(pageclass: t.Type[Page]):
             if not isinstance(pageclass, Page.__class__):
