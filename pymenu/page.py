@@ -60,10 +60,3 @@ class Item(Listener):
     def __init__(self, label: t.Optional[str] = None, triggers: t.Tuple[str] = (), action: t.Optional[t.Callable] = None):
         super().__init__(triggers, action)
         self.label: t.Optional[str] = label
-
-
-if __name__ == '__main__':
-    item = Item(label='1. Back.', triggers=(
-        '1'), action=lambda: print('hello'))
-    print(item.label)
-    item.listen((Console.read()))
