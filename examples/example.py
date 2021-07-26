@@ -29,6 +29,7 @@ class SomePage(Page):
         )
         self.item(
             label='3. Go to "home".',
+            # TODO: make it work (self.redirect) instead of (menu.run).
             action=lambda: self.redirect('home'),
             triggers=('3', 'Home', 'home')
         )
