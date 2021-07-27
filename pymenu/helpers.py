@@ -17,11 +17,3 @@ def protect(*protected) -> t.Type[Protect]:
             klass = super().__new__(meta, name, bases, attrs)
             return klass
     return Protect
-
-
-def redirect():
-    pass
-
-
-def url_for():
-    pass
