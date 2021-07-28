@@ -8,12 +8,11 @@ from pymenu.context import Context
 class PyMenu:
 
     def __init__(self, separator: t.Optional[str] = None, looped: bool = False, printer: t.Callable = lambda *args, **kwargs: print(*args, **kwargs)):
-        self.context: t.Type[Context] = Context()
+        self.pagebuilder: PageBuilder = PageBuilder()
         self.pageholder: t.Type[Holder] = Holder()  # {pagename: pageclass}
         self.separator: t.Optional[str] = separator
         self.printer: t.Callable = printer
         self.looped: bool = looped  # TODO: make it work.
-        # self.pagebuilder: PageBuilder = PageBuilder()  # TODO: make it work.
 
     @property
     def pages(self):
@@ -23,7 +22,7 @@ class PyMenu:
         if not self.pageholder.haskey(pagename):
             return None
         pageclass = self.pageholder[pagename]
-        PageBuilder(pageclass, self.context).build()
+        self.pagebuilder.build(pageclass)
         return pageclass.__name__
 
     # TODO: make 2 ways using this (with pagename and without).
@@ -34,4 +33,10 @@ class PyMenu:
                     f'{pageclass.__name__} must be inherited from Page class.')
             self.pageholder.add(pagename, pageclass)
             return pageclass
+        return decorator
+
+    # TODO: if calling page is not in holder, execute user's method.
+    def none(self):
+        def decorator(f: t.Callable):
+            pass
         return decorator
