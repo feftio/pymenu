@@ -1,12 +1,12 @@
 from __future__ import annotations
 import typing as t
+from pymenu.triggers import Trigger
 
 
 class Listener:
-    def __init__(self, triggers: t.Tuple[str], action: t.Callable):
-        self.triggers: t.Tuple[t.Any] = triggers
+    def listener(self, action: t.Callable, triggers: t.Tuple[Trigger]) -> None:
         self.action: t.Callable = action
+        self.triggers: t.Tuple[Trigger] = triggers
 
-    def listen(self, trigger: str):
-        if trigger in self.triggers:
-            return self.action()
+    def listen(self, trigger: Trigger) -> None:
+        pass
