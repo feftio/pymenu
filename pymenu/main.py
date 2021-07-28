@@ -36,7 +36,7 @@ class PyMenu:
         return decorator
 
     # TODO: if calling page is not in holder, execute user's method.
-    def none(self):
-        def decorator(f: t.Callable):
-            pass
+    def none(self, f: t.Callable) -> t.Callable:
+        def decorator():
+            return f
         return decorator
