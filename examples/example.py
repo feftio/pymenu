@@ -7,37 +7,35 @@ import os
 menu = PyMenu()
 
 
+@menu.none
+def none():
+    print('No Page')
+
+
 @menu.page('home')
 class HomePage(Page):
     def build(self):
-        self.item(label='1. Choose algorithm.')
-        self.item(label='2. Help.')
-
-
-@menu.page('some')
-class SomePage(Page):
-    def build(self):
-        self.item(
-            label='1. Run "Exit".',
-            action=lambda: print('Running...'),
-            triggers=('1', 'Run', 'run')
-        )
-        self.item(
-            label='2. Show items.',
-            action=lambda: self.print(self.items),
-            triggers=('2', 'Items', 'items')
-        )
-        self.item(
-            label='3. Go to "home".',
-            # TODO: make it work (self.redirect) instead of (menu.run).
-            action=lambda: self.redirect('home'),
-            triggers=('3', 'Home', 'home')
-        )
-        self.item(
-            label='4. Empty item.',
-            action=lambda: menu.run('some'),
-            triggers=('4', 'Some', 'some', '')
+        return Group(
+            Item(
+                label='1. First.',
+                action=lambda: self.print('First called'),
+                triggers=(
+                    CharsTrigger('1', 'First', 'first')
+                )
+            ),
+            Item(
+                label='2. Second.',
+                triggers=(
+                    CharsTrigger('2', 'Second', 'second')
+                )
+            ),
+            Back(
+                label='3. Third.',
+                triggers=(
+                    CharsTrigger('3', 'Third', 'third')
+                )
+            )
         )
 
 
-menu.run('some')
+# menu.run('home')
