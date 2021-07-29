@@ -1,7 +1,7 @@
-from pymenu.context import Context
 from pymenu import PyMenu
 from pymenu.page import Page
-import os
+from pymenu.elements import Group, Item, Back, Hidden
+from pymenu.triggers import CharsTrigger, KeysTrigger
 
 
 menu = PyMenu()
@@ -18,24 +18,18 @@ class HomePage(Page):
         return Group(
             Item(
                 label='1. First.',
-                action=lambda: self.print('First called'),
-                triggers=(
-                    CharsTrigger('1', 'First', 'first')
-                )
             ),
             Item(
                 label='2. Second.',
-                triggers=(
-                    CharsTrigger('2', 'Second', 'second')
-                )
             ),
             Back(
                 label='3. Third.',
-                triggers=(
-                    CharsTrigger('3', 'Third', 'third')
-                )
+            ),
+            Hidden(
+                action=lambda: print('Hidden called...'),
+                triggers=()
             )
         )
 
 
-# menu.run('home')
+menu.run('home')
