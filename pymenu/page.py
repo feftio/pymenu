@@ -1,62 +1,38 @@
 from __future__ import annotations
 import typing as t
-from abc import ABCMeta, abstractmethod
 from pymenu.context import Context
-from pymenu.helpers import protect
 from pymenu.console import Console
-from pymenu.listener import Listener
+from pymenu.elements import Element
+from pymenu.triggers import Trigger
 
 
 class Page:
+    def __init__(self, context: Context):
+        self.context: Context = context
 
-    __metaclass__ = protect('print', 'item', 'back')
-
-    def __init__(self, context: t.Type[Context]):
-        self.context: t.Type[Context] = context
-        self.items: t.List[t.Type[Item]] = []
-
-    def build(self):
+    def build(self) -> Element:
         raise NotImplementedError(
             f'You need to override "build" method in {self.__class__.__name__} class.')
 
-    def listen(self, trigger: str) -> None:
-        for item in self.items:
-            item.listen(trigger)
-
-    def action(self):
-        pass
-
-    def item(self, label: t.Optional[str] = None, triggers: t.Tuple[str] = (), action: t.Optional[t.Callable] = None):
-        action = self.action if action is None else action
-        _item = Item(label, triggers, action)
-        self.print(_item.label)
-        self.items.append(_item)
-
-    def back(self, label: t.Optional[str] = None, triggers: t.Tuple[str] = ()) -> None:
-        def _back():
-            pass
-        self.item(label, triggers, action=_back())
-
-    def printer(self, *args, **kwargs) -> None:
-        print(*args, **kwargs)
-
-    def print(self, *args, **kwargs) -> None:
-        self.printer(*args, **kwargs)
-
 
 class PageBuilder:
-    def __init__(self, pageclass: t.Type[Page], context: t.Type[Context]):
-        self.pageclass: t.Type[Page] = pageclass
-        self.context: t.Type[Context] = context
+    def __init__(self):
+        self.context: Context = Context()
 
-    def build(self):
+    def build(self, pageclass: Page):
         Console.clear()
-        page = self.pageclass(self.context)
-        page.build()
-        page.listen(Console.read())
+        page = pageclass(self.context)
+        es = ElementSystem(page.build())
+        es.render()
+        es.listen(Console.read())
 
 
-class Item(Listener):
-    def __init__(self, label: t.Optional[str] = None, triggers: t.Tuple[str] = (), action: t.Optional[t.Callable] = None):
-        super().__init__(triggers, action)
-        self.label: t.Optional[str] = label
+class ElementSystem:
+    def __init__(self, root: Element):
+        self.root: Element = root
+
+    def render(self) -> None:
+        self.root.render()
+
+    def listen(self, trigger: Trigger) -> None:
+        self.root.listen(trigger)
