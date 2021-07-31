@@ -3,7 +3,8 @@ import typing as t
 
 
 class Trigger:
-    pass
+    def __init__(self, content: str):
+        self.content: str = content
 
 
 class CharsTrigger(Trigger):
