@@ -1,11 +1,11 @@
 from __future__ import annotations
-from pymenu.holder import Holder
 import typing as t
+from pymenu.holder import Holder
 
 
 class Context:
     def __init__(self) -> None:
-        pass
+        self.history: t.List = []
 
     @property
     def page(self) -> str:
