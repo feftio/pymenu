@@ -2,8 +2,8 @@ from __future__ import annotations
 import typing as t
 from pymenu.context import Context
 from pymenu.console import Console
-from pymenu.elements import Element
-from pymenu.triggers import Trigger
+from pymenu.elements import Element, ElementInterface
+from pymenu.triggers import CharsTrigger, Trigger
 
 
 class Page:
@@ -19,17 +19,21 @@ class PageBuilder:
     def __init__(self):
         self.context: Context = Context()
 
-    def build(self, pageclass: Page):
+    def save(self, pagename: str) -> None:
+        self.context.history.append(pagename)
+
+    def build(self, pagename: str, pageclass: Page) -> None:
+        self.save(pagename)
         Console.clear()
         page = pageclass(self.context)
         es = ElementSystem(page.build())
         es.render()
-        es.listen(Console.read())
+        es.listen(CharsTrigger(Console.read()))
 
 
 class ElementSystem:
-    def __init__(self, root: Element):
-        self.root: Element = root
+    def __init__(self, root: ElementInterface):
+        self.root: ElementInterface = root
 
     def render(self) -> None:
         self.root.render()
