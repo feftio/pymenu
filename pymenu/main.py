@@ -22,7 +22,7 @@ class PyMenu:
         if not self.pageholder.haskey(pagename):
             return None
         pageclass = self.pageholder[pagename]
-        self.pagebuilder.build(pageclass)
+        self.pagebuilder.build(pagename, pageclass)
         return pageclass.__name__
 
     # TODO: make 2 ways using this (with pagename and without).
