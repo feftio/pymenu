@@ -1,7 +1,32 @@
+from rich.segment import Segment
 from pymenu import PyMenu
 from pymenu.page import Page
 from pymenu.elements import Group, Item, Back, Hidden, Redirect
-from pymenu.triggers import CharsTrigger, KeysTrigger
+import keyboard
+import time
+from threading import Thread
+
+from rich import print
+from rich.layout import Layout
+
+layout = Layout()
+layout.split_column(
+    Layout(name="upper"),
+    Layout(name="lower")
+)
+print(layout)
+
+# table = Table()
+# table.add_column("Row ID")
+# table.add_column("Description")
+# table.add_column("Level")
+
+# with Live(table, refresh_per_second=10):  # update 4 times a second to feel fluid
+#     print('hello')
+#     for row in range(12):
+#         time.sleep(0.4)  # arbitrary delay
+#         # update the renderable internally
+#         table.add_row(f"{row}", f"description {row}", "[red]ERROR")
 
 
 menu = PyMenu()
@@ -43,7 +68,7 @@ class WorkPage(Page):
         return Group(
             Item(
                 label='1. Write report.',
-                triggers=('1', 'write', '@Ctrl + v'),
+                triggers=('1', 'write', '~Ctrl+v~'),
                 action=lambda: menu.run('home')
             ),
             Back(
@@ -52,4 +77,8 @@ class WorkPage(Page):
         )
 
 
-menu.run('work')
+# menu.run('work')
+
+
+# for step in track(range(100)):
+#     do_step(step)
