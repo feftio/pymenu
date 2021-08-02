@@ -6,15 +6,15 @@ import keyboard
 import time
 from threading import Thread
 
-from rich import print
-from rich.layout import Layout
+# from rich import print
+# from rich.layout import Layout
 
-layout = Layout()
-layout.split_column(
-    Layout(name="upper"),
-    Layout(name="lower")
-)
-print(layout)
+# layout = Layout()
+# layout.split_column(
+#     Layout(name="upper"),
+#     Layout(name="lower")
+# )
+# print(layout)
 
 # table = Table()
 # table.add_column("Row ID")
@@ -77,7 +77,7 @@ class WorkPage(Page):
         )
 
 
-# menu.run('work')
+menu.run('work')
 
 
 # for step in track(range(100)):
