@@ -3,6 +3,7 @@ import typing as t
 from abc import ABC, abstractmethod
 from pymenu.listener import GroupListener, Listener, ListenerInterface
 from pymenu.triggers import Trigger
+from rich import print
 
 
 class ElementInterface(ListenerInterface, ABC):

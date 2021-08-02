@@ -4,11 +4,15 @@ from pymenu.context import Context
 from pymenu.console import Console
 from pymenu.elements import Element, ElementInterface
 from pymenu.triggers import CharsTrigger, Trigger
+from rich import print
 
 
 class Page:
     def __init__(self, context: Context):
         self.context: Context = context
+
+    def print(self, *args, **kwargs) -> None:
+        print(*args, **kwargs)
 
     def build(self) -> Element:
         raise NotImplementedError(
