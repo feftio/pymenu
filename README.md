@@ -1,7 +1,9 @@
 # pymenu
 
 ## Used libraries
-**pymenu** uses [keyboard](https://github.com/boppreh/keyboard) to take control of a keyboard.
+
+- [**rich**](https://github.com/willmcgugan/rich) to rich text and formatting output data;
+- [**keyboard**](https://github.com/boppreh/keyboard) to take control of a keyboard.
 
 ## Future usage
 
