@@ -29,56 +29,61 @@ from threading import Thread
 #         table.add_row(f"{row}", f"description {row}", "[red]ERROR")
 
 
+# menu = PyMenu()
+
+
+# @menu.none
+# def none():
+#     print('No Page')
+
+
+# @menu.page('home')
+# class HomePage(Page):
+#     def build(self):
+#         return Group(
+#             Item(
+#                 label='1. First.',
+#                 triggers=('1'),
+#                 action=lambda: menu.run('work')
+#             ),
+#             Item(
+#                 label='2. Print history.',
+#                 triggers=('2', 'print'),
+#                 action=lambda: print(self.context.history)
+#             ),
+#             Redirect(
+#                 to='work',
+#                 triggers=()
+#             ),
+#             Hidden(
+#                 action=lambda: print('Hidden called...'),
+#                 triggers=()
+#             )
+#         )
+
+
+# @menu.page('work')
+# class WorkPage(Page):
+#     def build(self):
+#         return Group(
+#             Item(
+#                 label='1. Write report.',
+#                 triggers=('1', 'write', '~Ctrl+v~'),
+#                 action=lambda: menu.run('home')
+#             ),
+#             Back(
+#                 label='2. Go back.',
+#             )
+#         )
+
+
+# menu.run('work')
+
 menu = PyMenu()
 
-
-@menu.none
-def none():
-    print('No Page')
-
-
-@menu.page('home')
-class HomePage(Page):
+@menu.page('my')
+class MyPage(Page):
     def build(self):
-        return Group(
-            Item(
-                label='1. First.',
-                triggers=('1'),
-                action=lambda: menu.run('work')
-            ),
-            Item(
-                label='2. Print history.',
-                triggers=('2', 'print'),
-                action=lambda: print(self.context.history)
-            ),
-            Redirect(
-                to='work',
-                triggers=()
-            ),
-            Hidden(
-                action=lambda: print('Hidden called...'),
-                triggers=()
-            )
-        )
+        return Item('1. pymenu.')
 
-
-@menu.page('work')
-class WorkPage(Page):
-    def build(self):
-        return Group(
-            Item(
-                label='1. Write report.',
-                triggers=('1', 'write', '~Ctrl+v~'),
-                action=lambda: menu.run('home')
-            ),
-            Back(
-                label='2. Go back.',
-            )
-        )
-
-
-menu.run('work')
-
-
-# for step in track(range(100)):
-#     do_step(step)
+menu.run('my')
