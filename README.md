@@ -10,10 +10,10 @@
 ```python
 import pymenu
 
-menu = pymenu.Pymenu()
+menu = pymenu.PyMenu()
 
 @menu.page('my')
-class MyPage:
+class MyPage(Page):
     def build(self):
         return Item('1. pymenu.')
 
