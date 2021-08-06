@@ -25,13 +25,13 @@ class PyMenu:
         self.pagebuilder.build(pagename, pageclass)
         return pageclass.__name__
 
-    # TODO: make 2 ways using this (with pagename and without).
-    def page(self, pagename: str) -> t.Callable:
+    def page(self, pagename: t.Optional[str] = None) -> t.Callable:
         def decorator(pageclass: Page):
             if not isinstance(pageclass, Page.__class__):
                 raise TypeError(
                     f'{pageclass.__name__} must be inherited from Page class.')
-            self.pageholder.add(pagename, pageclass)
+            _pagename = pageclass.__name__ if pagename is None else pagename
+            self.pageholder.add(_pagename, pageclass)
             return pageclass
         return decorator
 

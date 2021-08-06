@@ -81,9 +81,9 @@ from threading import Thread
 
 menu = PyMenu()
 
-@menu.page('my')
+@menu.page()
 class MyPage(Page):
     def build(self):
         return Item('1. pymenu.')
 
-menu.run('my')
+menu.run('MyPage')
