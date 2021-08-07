@@ -16,7 +16,7 @@ class PyMenu:
 
     @property
     def pages(self):
-        return tuple(map(lambda item: (item[0], item[1].__name__), self.pageholder.items()))
+        return tuple(self.pageholder.items())
 
     def run(self, pagename: str, *args, **kwargs) -> t.Optional[str]:
         if not self.pageholder.haskey(pagename):
@@ -25,15 +25,19 @@ class PyMenu:
         self.pagebuilder.build(pagename, pageclass)
         return pageclass.__name__
 
-    def page(self, pagename: t.Optional[str] = None) -> t.Callable:
-        def decorator(pageclass: Page):
-            if not isinstance(pageclass, Page.__class__):
-                raise TypeError(
-                    f'{pageclass.__name__} must be inherited from Page class.')
-            _pagename = pageclass.__name__ if pagename is None else pagename
-            self.pageholder.add(_pagename, pageclass)
-            return pageclass
-        return decorator
+    def page(self, page: t.Union[Page, str]) -> t.Callable:
+        if isinstance(page, str):
+            def decorator(pageclass: Page):
+                pagename = page
+                if not isinstance(pageclass, Page.__class__):
+                    raise TypeError(
+                        f'{pageclass.__name__} must be inherited from Page class.')
+                self.pageholder.add(pagename, pageclass)
+                return pageclass
+            return decorator
+        pagename, pageclass = page.__name__, page
+        self.pageholder.add(pagename, pageclass)
+        return pageclass
 
     # TODO: if calling page is not in holder, execute user's method.
     def none(self, f: t.Callable) -> t.Callable:
